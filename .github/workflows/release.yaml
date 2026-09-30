@@ -1,0 +1,21 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  tests:
+     uses: alebura/INEOS_MMDA/.github/workflows/test.yaml@main
+     secrets: inherit
+  deploy-cf:
+    needs: [tests]
+    uses: alebura/INEOS_MMDA/.github/workflows/cf.yaml@main
+    secrets: inherit
+    with:
+      environment: Production

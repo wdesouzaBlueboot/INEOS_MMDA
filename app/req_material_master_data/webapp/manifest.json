@@ -1,0 +1,270 @@
+{
+  "_version": "1.82.0",
+  "sap.app": {
+    "id": "reqmaterialmasterdata",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.20.3",
+      "toolsId": "c48049f2-4061-4684-8dde-b777c33d49d7"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "MaterialRequest-manage": {
+          "semanticObject": "MaterialRequest",
+          "action": "manage",
+          "title": "{{MaterialRequest-manage.flpTitle}}",
+          "subTitle": "{{MaterialRequest-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber": "1.136"
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.136.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "reqmaterialmasterdata.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      },
+      "userContext": {
+        "type": "sap.ui.model.json.JSONModel",
+        "preload": true
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "FormList",
+          "target": "FormList"
+        },
+        {
+          "pattern": "RequestForm({key}):?query:",
+          "name": "FormObjectPage",
+          "target": "FormObjectPage"
+        }
+      ],
+      "targets": {
+        "FormList": {
+          "type": "Component",
+          "id": "FormList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/RequestForm",
+              "variantManagement": "Page",
+              "navigation": {
+                "RequestForm": {
+                  "detail": {
+                    "route": "FormObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "creationMode": {
+                      "name": "NewPage"
+                    },
+                    "condensedTableLayout": false
+                  },
+                  "columns": {
+                    "DataField::vendor_Supplier": {
+                      "widthIncludingColumnHeader": false,
+                      "width": "10%"
+                    },
+                    "DataField::formNumber": {
+                      "widthIncludingColumnHeader": true
+                    },
+                    "DataField::requestorName": {
+                      "widthIncludingColumnHeader": true
+                    },
+                    "DataField::materialClass_ClassInternalID": {
+                      "width": "10%"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "FormObjectPage": {
+          "type": "Component",
+          "id": "FormObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/RequestForm",
+              "navigation": {},
+              "bindingParameters": {
+                "expand": "toNewStock,toNonStock,toSafetyStock,toDeletion"
+              },
+              "content": {
+                "body": {
+                  "sections": {
+                    "ClassCharacteristics": {
+                      "template": "reqmaterialmasterdata.ext.fragment.ClassCharacteristics",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "NonToStock"
+                      },
+                      "title": "{i18n>classCharacteristics}"
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.FieldGroup#Deletion": {
+                  "fields": {
+                    "Plant": {
+                      "template": "reqmaterialmasterdata.ext.fragment.Plant",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::materialDescription"
+                      },
+                      "label": "{i18n>plant}"
+                    }
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.FieldGroup#SafetyStock": {
+                  "fields": {
+                    "Plant": {
+                      "template": "reqmaterialmasterdata.ext.fragment.Plant",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::materialDescription"
+                      },
+                      "label": "{i18n>plant}"
+                    }
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.FieldGroup#NonToStock": {
+                  "fields": {
+                    "Plant": {
+                      "template": "reqmaterialmasterdata.ext.fragment.Plant",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::materialDescription"
+                      },
+                      "label": "{i18n>plant}"
+                    }
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.FieldGroup#GeneratedGroup": {
+                  "fields": {
+                    "NonToStockNote": {
+                      "template": "reqmaterialmasterdata.ext.fragment.NonToStockNote",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::formType_code"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#reqmaterialmasterdata::FormObjectPage": {
+            "controllerName": "reqmaterialmasterdata.ext.controller.ObjectPageCustom"
+          },
+          "sap.fe.templates.ListReport.ListReportController#reqmaterialmasterdata::FormList": {
+            "controllerName": "reqmaterialmasterdata.ext.controller.FormListCustom"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "material_master_data.service"
+  }
+}

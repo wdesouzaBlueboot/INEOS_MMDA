@@ -1,0 +1,192 @@
+{
+  "_version": "1.84.0",
+  "sap.app": {
+    "id": "materialcreationvalues",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.22.0",
+      "toolsId": "d4c1b091-33f9-4ac6-b109-78d61d1d3896"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "MaterialCreationValues-manage": {
+          "semanticObject": "MaterialCreationValues",
+          "action": "manage",
+          "title": "{{MaterialCreationValues-manage.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber": "1.148"
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "materialcreationvalues.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MaterialCreationValuesList",
+          "target": "MaterialCreationValuesList"
+        },
+        {
+          "pattern": "MaterialCreationValues({key}):?query:",
+          "name": "MaterialCreationValuesObjectPage",
+          "target": "MaterialCreationValuesObjectPage"
+        }
+      ],
+      "targets": {
+        "MaterialCreationValuesList": {
+          "type": "Component",
+          "id": "MaterialCreationValuesList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/MaterialCreationValues",
+              "variantManagement": "Page",
+              "navigation": {
+                "MaterialCreationValues": {
+                  "detail": {
+                    "route": "MaterialCreationValuesObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable",
+                    "enableMassEdit": {
+                      "visibleFields": "requestPlant_plant_Plant,formType_code,repairableStatus,costOperator,costThreshold,category,industrySector,materialType,plant_Plant,purchasingGroup,xPlantMatStatus,purchasingValueKey,grProcessingTime,mrpGroup,mrpType,mrpController,lotSizeProcedure,prodStorageLocation,schedMarginKey,safetyStock,availabilityCheck,storageLocation,storageBin,profitCenter,valuationClass,priceControl,standardPrice"
+                    }
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "tableView",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView"
+                  },
+                  {
+                    "key": "TableLogicOverview",
+                    "label": "{i18n>configurationGuide}",
+                    "template": "materialcreationvalues.ext.fragment.TableLogicOverview"
+                  }
+                ]
+              },
+              "initialLoad": "Enabled"
+            }
+          }
+        },
+        "MaterialCreationValuesObjectPage": {
+          "type": "Component",
+          "id": "MaterialCreationValuesObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/MaterialCreationValues"
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#materialcreationvalues::MaterialCreationValuesObjectPage": {
+            "controllerName": "materialcreationvalues.ext.controller.ObjectPageCustom"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "material_master_data.service"
+  }
+}

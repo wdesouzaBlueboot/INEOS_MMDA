@@ -1,0 +1,84 @@
+<core:FragmentDefinition 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m" 
+    xmlns:macros="sap.fe.macros">
+    <VBox 
+        id="vboxCharacteristics" 
+        core:require="{ 
+            handler: 'reqmaterialmasterdata/ext/fragment/ClassCharacteristics', 
+            formatter: 'reqmaterialmasterdata/ext/model/formatter'
+        }">
+        <Table id="characteristicsTable"
+               items="{characteristics>/items}"
+               busyIndicatorDelay="0"
+               growing="true"
+               growingThreshold="20"
+               noDataText="{i18n>selectMaterialClassMsg}">
+            
+            <headerToolbar>
+                <OverflowToolbar id="toolBarCharac">
+                    <Title id="toolBarTitleCharac" text="Characteristic Details" />
+                    <ToolbarSpacer id="toolBarSpacCharac"/>
+                    <SearchField id="toolBarSearchCharac"
+                        width="40%" 
+                        search="handler.onFilterCharacteristics" 
+                        placeholder="Search by ID, Name or Description..." />
+                </OverflowToolbar>
+            </headerToolbar>
+
+            <columns>
+                <Column id="colCharID">
+                    <Text id="txtHeaderID" text="ID"/>
+                </Column>
+                <Column id="colMane">
+                    <Text id="txtHeaderName" text="Name"/>
+                </Column>
+                <Column id="colCharDescription">
+                    <Text id="txtHeaderDescription" text="Description"/>
+                </Column>
+                <Column id="colCharValue">
+                    <Text id="txtHeaderValue" text="Value"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="cliCharacteristics">
+                    <cells>
+                        <Text id="txtCharID" text="{characteristics>charId}"/>
+                        <Text id="txtCharName" text="{characteristics>name}"/>
+                        <Text id="txtCharDescription" text="{characteristics>description}"/>
+                        <VBox id="possibleValue">
+                            <Input
+                                id="inpCharValueCHAR"
+                                value="{characteristics>selectedValue}"
+                                liveChange="handler.onCharLiveChange"
+                                showValueHelp="{characteristics>hasValueList}"
+                                valueHelpRequest="handler.onValueHelpRequest"
+                                visible="{= (${IsActiveEntity} === false) &amp;&amp; (${characteristics>dataType} === 'CHAR')}"/>
+
+                            <Input
+                                id="inpCharValueNUM"
+                                change="handler.onNumericChange"
+                                value="{
+                                    parts: [
+                                        {path: 'characteristics>selectedValue'},
+                                        {path: 'characteristics>length'},
+                                        {path: 'characteristics>decimals'}
+                                    ],
+                                    formatter: 'formatter.formatNUM'
+                                }"
+                                showValueHelp="{characteristics>hasValueList}"
+                                valueHelpRequest="handler.onValueHelpRequest"
+                                description="{characteristics>currency}"
+                                visible="{= (${IsActiveEntity} === false) &amp;&amp; (${characteristics>dataType} === 'NUM' || ${characteristics>dataType} === 'CURR')}"/>
+
+                            <Text
+                                id="txtCharValueDisplay"
+                                text="{characteristics>selectedValue}"
+                                visible="{= ${IsActiveEntity} === true }" />
+                        </VBox>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </VBox>
+</core:FragmentDefinition>

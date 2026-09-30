@@ -1,0 +1,149 @@
+### metadata MD_C_PRODUCT_MAINTAIN_SRV
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/$metadata
+
+### metadata API_PRODUCT_SRV
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/$metadata
+
+### metadata API_PLANT_SRV
+GET HFO100.dest/sap/opu/odata/sap/API_PLANT_SRV/$metadata
+
+### metadata API_CLFN_CLASS_SRV
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CLASS_SRV/$metadata
+
+### metadata API_CLFN_CHARACTERISTIC_SRV
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/$metadata
+
+### vendor
+GET HFO100.dest/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner?$select=BusinessPartner,BusinessPartnerFullName&$filter=to_BusinessPartnerRole/BusinessPartnerRole eq 'FLVN01'
+
+### vendor role
+GET HFO100.dest/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartnerRole?$top=10&$format=json&$filter=BusinessPartnerRole eq 'FLVN01'
+
+### vendor supplier
+GET HFO100.dest/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_Supplier?$top=10&$format=json
+
+### unit of measure
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/I_UnitOfMeasure?$top=50
+
+### material nuevo
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/I_Product?$top=10&$format=json
+
+### material viejo
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/A_ProductDescription?$top=10&$format=json&$filter=ProductDescription eq 'TEST'
+
+### API_CLFN_PRODUCT_CLASSIFICATION_SRV
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_PRODUCT_CLASSIFICATION_SRV/$metadata
+
+### safety stock
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/A_ProductSupplyPlanning?$filter=SafetyStockQuantity ne 0.000&$format=json
+
+### class charact
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CLASS_SRV/A_ClfnClassForKeyDate('14')/to_ClassCharacteristic?$format=json
+
+### class charact
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CLASS_SRV/A_ClfnClassCharcForKeyDate?$format=json&$top=10
+
+### charact value
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharcValueForKeyDate?$filter=CharcValue eq '100 TO 120'&$format=json&$top=10
+
+### characteristic num
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharacteristicForKeyDate('9840')/to_CharacteristicValue?$format=json&$top=10
+
+### characteristic curr
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharacteristicForKeyDate('9841')/to_CharacteristicValue?$format=json&$top=10
+
+### characteristic test_1
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharacteristicForKeyDate('9840')?$format=json
+
+### characteristic test_2
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharacteristicForKeyDate?$filter=Characteristic eq 'CLASS'&$format=json&$top=10
+
+### characteristic test_2 description
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharcValueForKeyDate(CharcInternalID='9841',CharcValuePositionNumber='2')/to_CharcValueDesc?$format=json
+
+### plant prduct
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/I_ProductByPlantVH?$top=10&$format=json
+
+### prod group nuevo
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/$metadata
+
+### prod group nuevo filtro
+GET HFO100.dest/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/I_ProductGroup_2?$top=1&$filter=ProductGroup%20eq%20'ICT1001'&$select=ProductGroup,ProductGroup_Text
+
+### product group viejo
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCTGROUP_SRV/A_ProductGroup?$format=json
+
+### vendor nuevo
+GET HFO100.dest/sap/opu/odata/sap/MD_BUSINESSPARTNER_SRV/C_BusinessPartnerSupplier?$filter=substringof('FLVN01', Role) eq true&$format=json&$top=10
+
+### class filter
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CLASS_SRV/A_ClfnClassForKeyDate?$select=ClassInternalID,ClassType,Class&$filter=(ClassType%20eq%20%27001%27)&$top=10
+
+### characs
+GET HFO100.dest/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV/A_ClfnCharacteristicForKeyDate?$format=json&$top=10
+
+### a product
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/A_Product?$format=json&$top=10
+
+### fetch token
+# @name FetchToken
+GET HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/$metadata
+x-csrf-token: Fetch
+
+### post product
+POST HFO100.dest/sap/opu/odata/sap/API_PRODUCT_SRV/A_Product
+x-csrf-token: {{FetchToken.response.headers.x-csrf-token}}
+Content-Type: application/json
+
+{
+  "ProductType": "ERSA",
+  "CrossPlantStatus": "08",
+  "ProductGroup": "ICT1001",
+  "BaseUnit": "FT3",
+  "ProductManufacturerNumber": "M-123",
+  "IndustrySector": "C",
+  "to_Description": [
+    {
+      "Language": "EN",
+      "ProductDescription": "testcap"
+    }
+  ],
+  "to_Plant": [
+    {
+      "Plant": "3080",
+      "PurchasingGroup": "564",
+      "ProfitCenter": "4000020",
+      "to_ProductSupplyPlanning": {
+        "Plant": "3080",
+        "MinimumLotSizeQuantity": "10",
+        "LotSizingProcedure": "EX",
+        "MRPType": "PD",
+        "MRPResponsible": "002",
+        "SafetyStockQuantity": "0",
+        "PlannedDeliveryDurationInDays": "14",
+        "AvailabilityCheckType": "02",
+        "GoodsReceiptDuration": "1",
+        "MRPGroup": "Z001"
+      },
+      "to_StorageLocation": [
+        {
+          "Plant": "3080",
+          "StorageLocation": "0100",
+          "WarehouseStorageBin": "Newstock"
+        }
+      ]
+    }
+  ],
+  "to_ProductProcurement": {
+    "PurchasingAcknProfile": "0011"
+  },
+  "to_Valuation": [
+    {
+      "ValuationArea": "3080",
+      "ValuationClass": "3040",
+      "InventoryValuationProcedure": "V",
+      "PriceUnitQty": "1",
+      "MovingAveragePrice": "150.5"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+code,description
+NewStock,New Stock
+NonStock,Non-Stock
+Deletion,Delete
+SafetyStock,Safety Stock Level Change
+NonToStock,Non-Stock to New Stock Change

@@ -1,0 +1,16 @@
+ID,type,formType_code,plant_plant_Plant,email,name
+d31f4f65-1f7d-409d-910d-12371f72443e,InfoRecord,NonStock,*,francesca.primavesi@external.ineos.com,Jorge Claudio
+10e21da2-f49c-488a-a5dd-9c00766d1032,InfoRecord,NonStock,*,francesca.primavesi@external.ineos.com,Christina Fournier
+25e96df2-43a0-4d03-a4cf-68c081f0995b,BOM,*,3030,diana.antelo@ineos.com,Arnold Gonzalez
+dd8a2f32-a16b-4442-89dc-0ba9786881e6,BOM,*,3080,diana.antelo@ineos.com,Brandon Gabehart
+e498fda9-9b96-4d48-884b-ba574fd9926e,BOM,*,3040,diana.antelo@ineos.com,Michael McClellan
+f9e380e1-2f7f-4a5a-a2f7-1fc3306e310b,BOM,*,3016,diana.antelo@ineos.com,John‑Erik Zalesak
+06341df7-846f-9270-e3d1-24a09f817263,InfoRecord,NewStock,3080,diana.antelo@ineos.com,Kevin Pence
+17452e08-9570-0381-f4e2-35b1a0928374,InfoRecord,NewStock,3080,diana.antelo@ineos.com,Gina Munday
+28563f19-0681-1492-05f3-46c2b1a39485,InfoRecord,NewStock,3080,diana.antelo@ineos.com,Kevin Orff
+b1e9c8a2-3f1a-4d2b-9e8c-7f5b4a3c2d1e,InfoRecord,NewStock,3016,diana.antelo@ineos.com,Robert Grays
+c2f0d9b3-402b-5e3c-af9d-806c5b4d3e2f,InfoRecord,NewStock,3016,diana.antelo@ineos.com,Jorge Claudio
+d301eac4-513c-6f4d-b0ae-917d6c5e4f30,InfoRecord,NewStock,3016,diana.antelo@ineos.com,Kevin Orff
+e412fbd5-624d-705e-c1bf-028e7d6f5041,InfoRecord,NewStock,3030,diana.antelo@ineos.com,Ernest Cortez
+f5230ce6-735e-816f-d2c0-139f8e706152,InfoRecord,NewStock,3030,diana.antelo@ineos.com,Kevin Orff
+0b433aa4-c9cf-4fb0-a2f1-83b013baf476,InfoRecord,NonStock,*,diana.antelo@ineos.com,Diana Antelo

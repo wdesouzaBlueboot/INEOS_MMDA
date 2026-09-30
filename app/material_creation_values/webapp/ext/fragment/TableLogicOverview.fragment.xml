@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Panel id="panelLO" backgroundDesign="Solid" class="sapUiNoContentPadding">
+        <headerToolbar>
+            <Toolbar id="tollbarLO" height="3rem">
+                <Title id="titleLO" text="Configuration Guide" level="H4" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+			<MessageStrip id="ms1"
+				text="Matching Criteria: The first five columns serve as the primary comparison fields. User inputs from the Request Form are evaluated against these data points to identify and select the corresponding row for processing."
+				type="Information"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+			</MessageStrip>
+			<MessageStrip id="ms2"
+				text="Category: This is a descriptive column determined by the values in the first five matching fields, providing a label for the scenarios."
+				type="Information"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiSmallMarginBottom">
+			</MessageStrip>
+			<MessageStrip id="ms3"
+				text="Optional Attributes: If a field is empty, it indicates that the attribute is excluded from the matching logic and will not be transmitted to SAP. Only populated fields are used for cross-referencing and data integration."
+				type="Information"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiSmallMarginBottom">
+			</MessageStrip>
+			<MessageStrip id="ms4"
+				text="Price Determination: Depending on the 'Price Ctrl.' value, the system retrieves the standard price ('S') or adopts the requestor's 'Per unit price' ('V')."
+				type="Information"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiSmallMarginBottom">
+			</MessageStrip>
+			<MessageStrip id="ms5"
+				text="Static Attributes: All other columns contain fixed values. These are predefined in this configuration table and will be applied as-is to the corresponding record during processing."
+				type="Information"
+				showIcon="true"
+				showCloseButton="false"
+				class="sapUiSmallMarginBottom">
+			</MessageStrip>
+        </content>
+    </Panel>
+</core:FragmentDefinition>

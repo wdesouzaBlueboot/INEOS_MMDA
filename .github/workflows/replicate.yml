@@ -1,0 +1,28 @@
+name: Replicate to Remote
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  replicate:
+    if: github.repository == 'alebura/INEOS_MMDA'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure SSH and push to external repo
+        env:
+          SSH_KEY: ${{ secrets.REMOTE_SSH_KEY }}
+          REMOTE_URL: ${{ secrets.REMOTE_REPO_SSH_URL }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git remote add external "$REMOTE_URL"
+          git push external "HEAD:refs/heads/${{ github.ref_name }}"

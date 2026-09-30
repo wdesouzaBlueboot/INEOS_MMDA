@@ -1,0 +1,26 @@
+CharcInternalID,CharcValuePositionNumber,Delete_mc,Update_mc,to_CharcValueDesc_oc,CharcValueDependency,CharcValue,CharcFromNumericValue,CharcToNumericValue,IsDefaultValue,CharcFromNumericValueUnit,CharcToNumericValueUnit,LongTextID,ChangeNumber,DocumentType,DocNumber,DocumentPart,DocumentVersion,ValidityStartDate,ValidityEndDate,KeyDate,CharcLastChangedDateTime
+8113,1,false,false,false,,SS 1/16,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8113,2,false,false,false,,SS 1/8,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8113,3,false,false,false,,PEEK 1/16,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8114,1,false,false,false,,C18,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8114,2,false,false,false,,C8,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8114,3,false,false,false,,Phenyl,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8117,1,false,false,false,,1.8um,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8117,2,false,false,false,,3um,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8117,3,false,false,false,,5um,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8118,1,false,false,false,,C18,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8118,2,false,false,false,,C8,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8118,3,false,false,false,,Phenyl,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8118,4,false,false,false,,CN,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8121,1,false,false,false,,50x2.1mm,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8121,2,false,false,false,,100x2.1mm,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8121,3,false,false,false,,150x2.1mm,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8121,4,false,false,false,,50x4.6mm,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8121,5,false,false,false,,100x4.6mm,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8123,1,false,false,false,,Reversed Phase,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8123,2,false,false,false,,Normal Phase,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8123,3,false,false,false,,Ion Exchange,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+8123,4,false,false,false,,HILIC,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+9841,1,false,false,false,,Value A,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+9841,2,false,false,false,,Value B,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z
+9841,3,false,false,false,,Value C,,,,,,,,,,,,2023-01-01,9999-12-31,2023-01-01,2023-01-01T00:00:00Z

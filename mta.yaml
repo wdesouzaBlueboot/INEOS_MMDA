@@ -1,0 +1,295 @@
+_schema-version: 3.3.0
+ID: material_master_data
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: material_master_data-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: material_master_data-auth
+      - name: material_master_data-destination
+      - name: material_master_data-db
+      - name: material_master_data-connectivity
+      - name: material_master_data-attachments
+      - name: material_master_data-malware-scanner
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      instances: 1
+      keep-existing:
+        env: true
+    build-parameters:
+      builder: npm-ci
+  - name: material_master_data-app-deployer
+    type: com.sap.application.content
+    path: gen
+    requires:
+      - name: material_master_data-auth
+      - name: srv-api
+      - name: material_master_data-html5-repo-host
+        parameters:
+          config:
+            HTML5Runtime_enabled: true
+          content-target: true
+    build-parameters:
+      build-result: app/
+      requires:
+        - artifacts:
+            - reqmaterialmasterdata.zip
+          name: reqmaterialmasterdata
+          target-path: app/
+        - artifacts:
+            - maintainhierarchy.zip
+          name: maintainhierarchy
+          target-path: app/
+        - artifacts:
+            - maintainplanninglead.zip
+          name: maintainplanninglead
+          target-path: app/
+        - artifacts:
+            - characteristicconfiguration.zip
+          name: characteristicconfiguration
+          target-path: app/
+        - artifacts:
+            - materialcreationvalues.zip
+          name: materialcreationvalues
+          target-path: app/
+    parameters:
+      config:
+        destinations:
+          - Name: srv-api
+            URL: ~{srv-api/srv-url}
+            Authentication: NoAuthentication
+            Type: HTTP
+            ProxyType: Internet
+            HTML5.ForwardAuthToken: true
+            HTML5.DynamicDestination: true
+  - name: reqmaterialmasterdata
+    type: html5
+    path: app/req_material_master_data
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install --workspaces=false
+        - npm run build
+      supported-platforms:
+        []
+  - name: maintainhierarchy
+    type: html5
+    path: app/maintain_hierarchy
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install --workspaces=false
+        - npm run build
+      supported-platforms:
+        []
+  - name: maintainplanninglead
+    type: html5
+    path: app/maintain_planning_lead
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install --workspaces=false
+        - npm run build
+      supported-platforms:
+        []
+  - name: material_master_data
+    type: approuter.nodejs
+    path: app/router
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: srv-api
+          url: ~{srv-url}
+      - name: material_master_data-auth
+      - name: material_master_data-destination
+      - name: material_master_data-html5-runtime
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+    parameters:
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
+  - name: characteristicconfiguration
+    type: html5
+    path: app/characteristic_configuration
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install --workspaces=false
+        - npm run build
+      supported-platforms:
+        []
+  - name: materialcreationvalues
+    type: html5
+    path: app/material_creation_values
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install --workspaces=false
+        - npm run build
+      supported-platforms:
+        []
+
+  - name: material_master_data-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: material_master_data-db
+
+  - name: material_master_data-destinations
+    type: com.sap.application.content
+    requires:
+      - name: material_master_data-auth
+        parameters:
+          service-key:
+            name: material_master_data-auth-key
+      - name: material_master_data-html5-repo-host
+        parameters:
+          service-key:
+            name: material_master_data-html5-repo-host-key
+      - name: srv-api
+      - name: material_master_data-destination
+        parameters:
+          content-target: true
+    build-parameters:
+      no-source: true
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: material_master_data-html5-repository
+              ServiceInstanceName: material_master_data-html5-repo-host
+              ServiceKeyName: material_master_data-html5-repo-host-key
+              sap.cloud.service: material_master_data.service
+            - Name: material_master_data-auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: material_master_data-auth
+              ServiceKeyName: material_master_data-auth-key
+              sap.cloud.service: material_master_data.service
+resources:
+  - name: material_master_data-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        oauth2-configuration:
+          credential-types:
+            - binding-secret
+            - x509
+          redirect-uris:
+            - https://*~{app-api/app-uri}/**
+        tenant-mode: dedicated
+        xsappname: material_master_data-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-keys:
+        - name: material_master_data-auth-key
+      service-name: material_master_data-auth
+      service-plan: application
+    requires:
+      - name: app-api
+  - name: material_master_data-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-keys:
+        - name: material_master_data-connectivity-key
+      service-name: material_master_data-connectivity
+      service-plan: lite
+  - name: material_master_data-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+              - Authentication: BasicAuthentication
+                Name: Teams_Notification_Webhook
+                ProxyType: Internet
+                Type: HTTP
+                User: notifier
+                Password: set-in-cockpit
+                URL: "https://defaultffea639244ee4085a7343de7fd3666.20.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/0820e4eacb7445a988ee089eeeac16a1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0"
+              - Authentication: BasicAuthentication
+                Name: Email_Notification_Webhook
+                ProxyType: Internet
+                Type: HTTP
+                User: notifier
+                Password: set-in-cockpit
+                URL: "https://defaultffea639244ee4085a7343de7fd3666.20.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/ee83984292b1459fa3bea1a5d69f13cd/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0"
+            existing_destinations_policy: ignore
+      service: destination
+      service-keys:
+        - name: material_master_data-destination-key
+      service-name: material_master_data-destination
+      service-plan: lite
+
+    requires:
+      - name: srv-api
+  - name: material_master_data-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: material_master_data-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+  - name: material_master_data-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: material_master_data-attachments
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: objectstore
+      service-plan: standard
+  - name: material_master_data-malware-scanner
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: malware-scanner
+      service-plan: clamav
+      config:
+        auth: mTLS
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

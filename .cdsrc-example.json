@@ -1,0 +1,274 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "auth": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-auth",
+          "key": "material_master_data-auth-key"
+        },
+        "kind": "xsuaa-auth",
+        "vcap": {
+          "name": "auth"
+        }
+      },
+      "connectivity": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-connectivity",
+          "key": "material_master_data-connectivity-key"
+        },
+        "kind": "connectivity",
+        "vcap": {
+          "name": "connectivity"
+        }
+      },
+      "destinations": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-destination",
+          "key": "material_master_data-destination-key"
+        },
+        "kind": "destinations",
+        "vcap": {
+          "name": "destinations"
+        }
+      },
+      "material_master_data-html5-repo-host": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-html5-repo-host",
+          "key": "material_master_data-html5-repo-host-key"
+        },
+        "vcap": {
+          "name": "material_master_data-html5-repo-host"
+        }
+      },
+      "plant": {
+        "kind": "odata-v2",
+        "model": "srv/external/plant",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_PLANT_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "class": {
+        "kind": "odata-v2",
+        "model": "srv/external/class",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_CLFN_CLASS_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "characteristic": {
+        "kind": "odata-v2",
+        "model": "srv/external/characteristic",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "material": {
+        "kind": "odata-v2",
+        "model": "srv/external/material",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_PRODUCT_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "material2": {
+        "kind": "odata-v2",
+        "model": "srv/external/material2",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "vendor": {
+        "kind": "odata-v2",
+        "model": "srv/external/vendor",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      }
+    },
+    "[semihybrid]": {
+      "auth": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-auth",
+          "key": "material_master_data-auth-key"
+        },
+        "kind": "xsuaa-auth",
+        "vcap": {
+          "name": "auth"
+        }
+      },
+      "destinations": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-destination",
+          "key": "material_master_data-destination-key"
+        },
+        "kind": "destinations",
+        "vcap": {
+          "name": "destinations"
+        }
+      },
+      "connectivity": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-connectivity",
+          "key": "material_master_data-connectivity-key"
+        },
+        "kind": "connectivity",
+        "vcap": {
+          "name": "connectivity"
+        }
+      },
+      "material_master_data-html5-repo-host": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+          "org": "INEOS Olefins & Polymers USA_ineos-op-usa-btp-prod",
+          "space": "BTP-TEST-PROD",
+          "instance": "material_master_data-html5-repo-host",
+          "key": "material_master_data-html5-repo-host-key"
+        },
+        "vcap": {
+          "name": "material_master_data-html5-repo-host"
+        }
+      },
+      "plant": {
+        "kind": "odata-v2",
+        "model": "srv/external/plant",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_PLANT_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "class": {
+        "kind": "odata-v2",
+        "model": "srv/external/class",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_CLFN_CLASS_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "characteristic": {
+        "kind": "odata-v2",
+        "model": "srv/external/characteristic",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "material": {
+        "kind": "odata-v2",
+        "model": "srv/external/material",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_PRODUCT_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "material2": {
+        "kind": "odata-v2",
+        "model": "srv/external/material2",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      },
+      "vendor": {
+        "kind": "odata-v2",
+        "model": "srv/external/vendor",
+        "credentials": {
+          "url": "http://HFO100.dest",
+          "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER",
+          "proxyConfiguration": {
+            "host": "127.0.0.1",
+            "port": 8887,
+            "protocol": "http"
+          }
+        }
+      }
+    }
+  }
+}

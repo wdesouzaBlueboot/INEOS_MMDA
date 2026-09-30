@@ -1,0 +1,5 @@
+ClassInternalID,Delete_mc,Update_mc,to_ClassCharacteristic_oc,to_ClassDescription_oc,to_ClassKeyword_oc,to_ClassText_oc,ClassType,ClassTypeName,Class,ClassStatus,ClassStatusName,ClassGroup,ClassGroupName,ClassSearchAuthGrp,ClassClassfctnAuthGrp,ClassMaintAuthGrp,DocNumber,DocumentType,DocumentPart,DocumentVersion,SameClassfctnReaction,ClassStandardOrgName,ClassStandardNumber,ClassStandardStartDate,ClassStandardVersionStartDate,ClassStandardVersion,ClassStandardCharcTable,CreationDate,LastChangeDate,ClassIsLocal,ValidityStartDate,ValidityEndDate,ClassLastChangedDateTime,KeyDate
+100,,,,,,,001,Material,PUMPS,1,Released,G1,Group 1,,,,,,,,,,,,,,2024-01-01,2024-01-01,,2024-01-01,9999-12-31,,2024-01-01
+101,,,,,,,001,Material,MOTORS,1,Released,G1,Group 1,,,,,,,,,,,,,,2024-01-01,2024-01-01,,2024-01-01,9999-12-31,,2024-01-01
+102,,,,,,,001,Material,VALVES,1,Released,G1,Group 1,,,,,,,,,,,,,,2024-01-01,2024-01-01,,2024-01-01,9999-12-31,,2024-01-01
+103,,,,,,,001,Material,COLUMNS,1,Released,G1,Group 1,,,,,,,,,,,,,,2024-01-01,2024-01-01,,2024-01-01,9999-12-31,,2024-01-01

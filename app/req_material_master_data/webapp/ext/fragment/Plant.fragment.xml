@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <VBox id="idVBoxPlant">
+        <Select id="selectPlant"
+            visible="{= !${IsActiveEntity} }"
+            forceSelection="false"
+            selectedKey="{plant_plant_Plant}"
+            items="{
+                path: 'plantsModel>/items',
+                sorter: { path: 'plantName' }
+            }"
+            width="100%"
+            beforeOpen="handler.onLoadPlants"
+            core:require="{ handler: 'reqmaterialmasterdata/ext/fragment/Plant'}">
+            <core:ListItem id="idListItemPlant" 
+                key="{plantsModel>plant}" 
+                text="{= ${plantsModel>plantName} + ' (' + ${plantsModel>plant} + ')' }"/>
+        </Select>
+
+        <Text 
+			id="idTxtPlant"
+			text="{= ${plant/PlantName} ? ${plant/PlantName} + ' (' + ${plant_plant_Plant} + ')' : ${plant_plant_Plant} }"
+			visible="{= ${IsActiveEntity} }"
+			wrapping="true" />
+    </VBox>
+</core:FragmentDefinition>

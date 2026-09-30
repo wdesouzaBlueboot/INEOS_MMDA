@@ -1,0 +1,1139 @@
+### =========================================================================
+### GLOBAL VARIABLES AND CREDENTIALS
+### =========================================================================
+@baseUrl = http://localhost:4004/odata/v4/catalog
+
+@requestor = Basic requestor requestor
+@reviewer = Basic reviewer revrevrev
+@reviewer1 = Basic reviewer1 reviewer1
+@reviewer1_1 = Basic reviewer1_1 reviewer1_1
+@reviewer2 = Basic reviewer2 reviewer2
+@reviewer3 = Basic reviewer3 reviewer3
+@reviewer4 = Basic reviewer4 reviewer4
+@rev1_3030 = Basic rev1_3030 rev1_3030
+@rev2_3030 = Basic rev2_3030 rev2_3030
+@rev3_3030 = Basic rev3_3030 rev3_3030
+@rev4_3030 = Basic rev4_3030 rev4_3030
+@rev5_3030 = Basic rev5_3030 rev5_3030
+@rev1_3333 = Basic rev1_3333Auth rev1_3333Auth
+@unassigned = Basic unassignedReviewer unassignedReviewer
+@admin = Basic admin admin
+@unauthorized = Basic unauthorized unauthorized
+
+### =========================================================================
+### 0. SETUP TEMPORARY HIERARCHY
+### =========================================================================
+### Execute these requests only once when starting the server to populate 
+### the hierarchy table temporarily so the rest of the flows work properly.
+
+### 3080 NewStock - Step 1
+# @name rh1
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3080", "formType_code": "NewStock", "step": 1, "reviewer": "reviewer1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh1.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3080 NewStock - Step 1 (Peer)
+# @name rh1_peer
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3080", "formType_code": "NewStock", "step": 1, "reviewer": "reviewer1_1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh1_peer.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3080 NewStock - Step 2
+# @name rh2
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3080", "formType_code": "NewStock", "step": 2, "reviewer": "reviewer2@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh2.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3080 NewStock - Step 3
+# @name rh3
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3080", "formType_code": "NewStock", "step": 3, "reviewer": "reviewer3@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh3.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3080 NewStock - Step 4
+# @name rh4
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3080", "formType_code": "NewStock", "step": 4, "reviewer": "reviewer4@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh4.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3333 NonStock - Step 1
+# @name rh_ns_3333
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3333", "formType_code": "NonStock", "step": 1, "reviewer": "rev1_3333Auth@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns_3333.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Step 1
+# @name rh_ns1
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3030", "formType_code": "NonStock", "step": 1, "reviewer": "rev1_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns1.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Step 2
+# @name rh_ns2
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3030", "formType_code": "NonStock", "step": 2, "reviewer": "rev2_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns2.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Step 3
+# @name rh_ns3
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3030", "formType_code": "NonStock", "step": 3, "reviewer": "rev3_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns3.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Step 4
+# @name rh_ns4
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3030", "formType_code": "NonStock", "step": 4, "reviewer": "rev4_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns4.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Step 5
+# @name rh_ns5
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "3030", "formType_code": "NonStock", "step": 5, "reviewer": "rev5_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ns5.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 4444 SafetyStock - Step 1
+# @name rh_ss1
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "4444", "formType_code": "SafetyStock", "step": 1, "reviewer": "reviewer1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ss1.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 4444 SafetyStock - Step 2
+# @name rh_ss2
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "4444", "formType_code": "SafetyStock", "step": 2, "reviewer": "reviewer2@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_ss2.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 5555 Deletion - Step 1
+# @name rh_del1
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "5555", "formType_code": "Deletion", "step": 1, "reviewer": "reviewer1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_del1.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 5555 Deletion - Step 2
+# @name rh_del2
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "5555", "formType_code": "Deletion", "step": 2, "reviewer": "reviewer2@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_del2.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 7777 NewStock - Step 1
+# @name rh_7777
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "7777", "formType_code": "NewStock", "step": 1, "reviewer": "reviewer1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_7777.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 8888 NewStock - Step 1
+# @name rh_8888
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "8888", "formType_code": "NewStock", "step": 1, "reviewer": "reviewer1@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_8888.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 9999 NonStock - Step 1
+# @name rh_9999
+POST {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "plant_Plant": "9999", "formType_code": "NonStock", "step": 1, "reviewer": "rev1_3030@test.com" }
+
+###
+POST {{baseUrl}}/ReviewHierarchy(ID={{rh_9999.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### =========================================================================
+### 0.1 SETUP TEMPORARY MATERIAL CREATION VALUES
+### =========================================================================
+
+### 3080 NewStock - Material Creation Config
+# @name mcv_3080_ns
+POST {{baseUrl}}/MaterialCreationValues
+Authorization: {{admin}}
+Content-Type: application/json
+
+{
+    "requestPlant_plant_Plant": "3080",
+    "formType_code": "NewStock",
+    "repairableStatus": "Not Repairable",
+    "costOperator": "<",
+    "costThreshold": 7000,
+    "plant": "3080",
+    "materialType": "ERSA",
+    "priceControl": "V",
+    "industrySector": "C",
+    "category": "Stock",
+    "purchasingGroup": "140",
+    "xPlantMatStatus": "06",
+    "purchasingValueKey": "0011",
+    "grProcessingTime": 1,
+    "mrpGroup": "0002",
+    "mrpType": "PD",
+    "mrpController": "001",
+    "lotSizeProcedure": "EX",
+    "prodStorageLocation": "0100",
+    "schedMarginKey": "001",
+    "safetyStock": 0,
+    "availabilityCheck": "02",
+    "storageLocation": "0100",
+    "storageBin": "Newstock",
+    "profitCenter": "28100021",
+    "valuationClass": "3040",
+    "standardPrice": 0.0
+}
+
+###
+POST {{baseUrl}}/MaterialCreationValues(ID={{mcv_3080_ns.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3333 NonStock - Material Creation Config
+# @name mcv_3333_non
+POST {{baseUrl}}/MaterialCreationValues
+Authorization: {{admin}}
+Content-Type: application/json
+
+{
+    "requestPlant_plant_Plant": "3333",
+    "formType_code": "NonStock",
+    "plant": "3333",
+    "materialType": "ERSA",
+    "priceControl": "V",
+    "industrySector": "C",
+    "category": "Nonstock",
+    "purchasingGroup": "245",
+    "xPlantMatStatus": "07",
+    "purchasingValueKey": "0011",
+    "grProcessingTime": 1,
+    "mrpGroup": "0002",
+    "mrpType": "ND",
+    "mrpController": "010",
+    "lotSizeProcedure": "EX",
+    "prodStorageLocation": "0100",
+    "schedMarginKey": "001",
+    "safetyStock": 0,
+    "availabilityCheck": "02",
+    "storageLocation": "0100",
+    "storageBin": "Nonstock",
+    "profitCenter": "28100021",
+    "valuationClass": "3040",
+    "standardPrice": 0.0
+}
+
+###
+POST {{baseUrl}}/MaterialCreationValues(ID={{mcv_3333_non.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### 3030 NonStock - Material Creation Config
+# @name mcv_3030_non
+POST {{baseUrl}}/MaterialCreationValues
+Authorization: {{admin}}
+Content-Type: application/json
+
+{
+    "requestPlant_plant_Plant": "3030",
+    "formType_code": "NonStock",
+    "plant": "3030",
+    "materialType": "ERSA",
+    "priceControl": "V",
+    "industrySector": "C",
+    "category": "Nonstock",
+    "purchasingGroup": "245",
+    "xPlantMatStatus": "07",
+    "purchasingValueKey": "0011",
+    "grProcessingTime": 1,
+    "mrpGroup": "0002",
+    "mrpType": "ND",
+    "mrpController": "010",
+    "lotSizeProcedure": "EX",
+    "prodStorageLocation": "0100",
+    "schedMarginKey": "001",
+    "safetyStock": 0,
+    "availabilityCheck": "02",
+    "storageLocation": "0100",
+    "storageBin": "Nonstock",
+    "profitCenter": "28100021",
+    "valuationClass": "3040",
+    "standardPrice": 0.0
+}
+
+###
+POST {{baseUrl}}/MaterialCreationValues(ID={{mcv_3030_non.response.body.ID}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{admin}}
+Content-Type: application/json
+
+{}
+
+### =========================================================================
+### 1. REQUESTFORM ENTITY - BASIC AUTHORIZATION CHECKS
+### =========================================================================
+
+### REQUESTOR can READ (Expected: 200)
+GET {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+
+### REVIEWER can READ (Expected: 200)
+GET {{baseUrl}}/RequestForm
+Authorization: {{reviewer}}
+
+### MANAGER can READ (Expected: 200)
+GET {{baseUrl}}/RequestForm
+Authorization: {{admin}}
+
+### UNAUTHORIZED cannot READ (Expected: 403)
+GET {{baseUrl}}/RequestForm
+Authorization: {{unauthorized}}
+
+### REQUESTOR can CREATE Draft (Expected: 201)
+# @name BasicCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ 
+    "formType_code": "NewStock", 
+    "plant_plant_Plant": "3030" 
+}
+
+### Save ID for next steps
+@basicFormId = {{BasicCreate.response.body.ID}}
+
+### REVIEWER cannot CREATE (Expected: 403)
+POST {{baseUrl}}/RequestForm
+Authorization: {{reviewer1}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3030" }
+
+### MANAGER cannot CREATE (Expected: 403)
+POST {{baseUrl}}/RequestForm
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3030" }
+
+### REQUESTOR can UPDATE Draft (Expected: 200)
+PATCH {{baseUrl}}/RequestForm(ID={{basicFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "safetyStockReq": "28" }
+
+### MANAGER cannot UPDATE Draft (Expected: 403)
+PATCH {{baseUrl}}/RequestForm(ID={{basicFormId}},IsActiveEntity=false)
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "safetyStockReq": "28" }
+
+### REQUESTOR cannot DELETE Active Entity (Expected: 403)
+DELETE {{baseUrl}}/RequestForm(ID={{basicFormId}},IsActiveEntity=true)
+Authorization: {{requestor}}
+
+
+### =========================================================================
+### 2. BASE APPROVAL PROCESS 
+### =========================================================================
+
+### Setup: Crear Draft
+# @name BaseFlowCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3080" }
+
+### Save ID for next steps
+@baseFormId = {{BaseFlowCreate.response.body.ID}}
+
+### PATCH fields required for NewStock
+PATCH {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10,
+    "functionalLocation": "FL-001",
+    "justification": "Stock Justification",
+    "estUsagePerYear": 100,
+    "maxQtyPerUse": 10,
+    "safetyStockReq": "10",
+    "specialStorageReq": "N/A",
+    "isPreventativeMaintReq": "No",
+    "willReqSupplyStock": true
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Setup: Fill required fields and activate
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 can APPROVE (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+### Step 2: REVIEWER 2 can APPROVE (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer2}}
+
+### Step 3: REVIEWER 3 can APPROVE (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer3}}
+
+### Step 4: REVIEWER 4 can APPROVE (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer4}}
+
+
+### =========================================================================
+### 3. APPROVAL PROCESS WITH 1 APPROVER (Plant 3333, NonStock)
+### =========================================================================
+
+### Setup
+# @name Flow1AppCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NonStock", "plant_plant_Plant": "3333" }
+
+### Save ID for next steps
+@form1AppId = {{Flow1AppCreate.response.body.ID}}
+
+### PATCH fields required for NonStock
+PATCH {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 (3333) can APPROVE (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev1_3333}}
+
+### Verify if it'a approved or if it has SAP error
+GET {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=true)
+Authorization: {{requestor}}
+
+### Step 1: if SAP_ERROR REVIEWER 1 (3333) can re-approve, if status Approved then cannot approve again
+POST {{baseUrl}}/RequestForm(ID={{form1AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev1_3333}}
+
+
+### =========================================================================
+### 4. APPROVAL PROCESS WITH 5 APPROVERS (Plant 3030, NonStock)
+### =========================================================================
+
+### Setup
+# @name Flow5AppCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NonStock", "plant_plant_Plant": "3030" }
+
+### Save ID for next steps
+@form5AppId = {{Flow5AppCreate.response.body.ID}}
+
+### PATCH fields required for NonStock
+PATCH {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 (3030) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev1_3030}}
+
+### Step 2: REVIEWER 2 (3030) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev2_3030}}
+
+### Step 3: REVIEWER 3 (3030) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev3_3030}}
+
+### Step 4: REVIEWER 4 (3030) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev4_3030}}
+
+### Step 5: REVIEWER 5 (3030) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{form5AppId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{rev5_3030}}
+
+
+### =========================================================================
+### 5. APPROVAL PROCESS FOR SAFETY STOCK (Plant 4444)
+### =========================================================================
+
+### Setup
+# @name SafetyStockCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ 
+    "formType_code": "SafetyStock", 
+    "plant_plant_Plant": "4444",
+    "sapMaterialNumber_Product": "PROD-123",
+    "safetyStockReq": "50"
+}
+
+### Save ID for next steps
+@ssFormId = {{SafetyStockCreate.response.body.ID}}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{ssFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 (4444) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{ssFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+
+### =========================================================================
+### 6. APPROVAL PROCESS FOR DELETION (Plant 5555)
+### =========================================================================
+
+### Setup
+# @name DeletionCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ 
+    "formType_code": "Deletion", 
+    "plant_plant_Plant": "5555",
+    "sapMaterialNumber_Product": "PROD-123"
+}
+
+### Save ID for next steps
+@delFormId = {{DeletionCreate.response.body.ID}}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{delFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 (5555) can APPROVE
+POST {{baseUrl}}/RequestForm(ID={{delFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+
+### =========================================================================
+### 7. APPROVAL PROCESS WITH REJECTION
+### =========================================================================
+
+### Setup
+# @name RejectFlowCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3080" }
+
+### Save ID for next steps
+@rejectFormId = {{RejectFlowCreate.response.body.ID}}
+
+### PATCH fields required for NewStock
+PATCH {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10,
+    "functionalLocation": "FL-001",
+    "justification": "Stock Justification",
+    "estUsagePerYear": 100,
+    "maxQtyPerUse": 10,
+    "safetyStockReq": "10",
+    "specialStorageReq": "N/A",
+    "isPreventativeMaintReq": "No",
+    "willReqSupplyStock": true
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Step 1: REVIEWER 1 can REJECT pending form with comments (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=true)/CatalogService.rejectRequest
+Authorization: {{reviewer1}}
+Content-Type: application/json
+
+{
+    "comments": "Missing information on justification field"
+}
+
+
+### =========================================================================
+### 8. FORBIDDEN REJECT / APPROVE ATTEMPTS
+### =========================================================================
+
+### Setup active form in step 1
+# @name ForbiddenFlowCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3080" }
+
+### Save ID for next steps
+@forbFormId = {{ForbiddenFlowCreate.response.body.ID}}
+
+### PATCH fields required for NewStock
+PATCH {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10,
+    "functionalLocation": "FL-001",
+    "justification": "Stock Justification",
+    "estUsagePerYear": 100,
+    "maxQtyPerUse": 10,
+    "safetyStockReq": "10",
+    "specialStorageReq": "N/A",
+    "isPreventativeMaintReq": "No",
+    "willReqSupplyStock": true
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### REVIEWER 2 cannot APPROVE before their turn (Expected: 403)
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer2}}
+
+### REVIEWER 3 cannot REJECT before their turn (Expected: 403)
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=true)/CatalogService.rejectRequest
+Authorization: {{reviewer3}}
+Content-Type: application/json
+
+{ "comments": "Rejecting too early" }
+
+
+### =========================================================================
+### 9. UNASSIGNED REVIEWER ATTEMPTS
+### =========================================================================
+
+### UNASSIGNED REVIEWER cannot APPROVE (Expected: 403)
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{unassigned}}
+
+### UNASSIGNED REVIEWER cannot REJECT (Expected: 403)
+POST {{baseUrl}}/RequestForm(ID={{forbFormId}},IsActiveEntity=true)/CatalogService.rejectRequest
+Authorization: {{unassigned}}
+Content-Type: application/json
+
+{ "comments": "I shouldn't be here" }
+
+
+### =========================================================================
+### 10. RESUBMISSION OF REJECTED FORM BY REQUESTOR
+### =========================================================================
+
+### REQUESTOR can Edit and Save (Resubmit) the rejected form (Using the form from section 7)
+# @name ResubmitDraftEdit
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=true)/CatalogService.draftEdit
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "PreserveChanges": true }
+
+### REQUESTOR PATCH (Expected: 200)
+PATCH {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "safetyStockReq": "99" }
+
+### REQUESTOR Activate again (Expected: 201)
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### REVIEWER 1 can APPROVE again after resubmission
+POST {{baseUrl}}/RequestForm(ID={{rejectFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+
+### =========================================================================
+### 11. MULTIPLE APPROVERS IN THE SAME STEP
+### =========================================================================
+
+### Setup
+# @name ParallelFlowCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "3080" }
+
+### Save ID for next steps
+@parallelFormId = {{ParallelFlowCreate.response.body.ID}}
+
+### PATCH fields required for NewStock
+PATCH {{baseUrl}}/RequestForm(ID={{parallelFormId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 100,
+    "estDeliveryTime": 10,
+    "functionalLocation": "FL-001",
+    "justification": "Stock Justification",
+    "estUsagePerYear": 100,
+    "maxQtyPerUse": 10,
+    "safetyStockReq": "10",
+    "specialStorageReq": "N/A",
+    "isPreventativeMaintReq": "No",
+    "willReqSupplyStock": true
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{parallelFormId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{parallelFormId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### REVIEWER 1_1 can APPROVE, moving flow to Step 2
+POST {{baseUrl}}/RequestForm(ID={{parallelFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1_1}}
+
+### REVIEWER 1 cannot APPROVE anymore because step 1 is done by peer (Expected: 403)
+POST {{baseUrl}}/RequestForm(ID={{parallelFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+
+### =========================================================================
+### 12. SAP_ERROR RETRY FLOW & EDIT ALLOWED
+### =========================================================================
+### *Note: To test this, the form must have 'generalStatus': 'SAP_ERROR' in the database.
+### We use the form from Section 2 (baseFormId) assuming it reached step 4 and failed.
+
+### REVIEWER 4 can EDIT when form has SAP_ERROR (Expected: 200 or 201)
+# @name RetryEdit
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.draftEdit
+Authorization: {{reviewer4}}
+Content-Type: application/json
+
+{ "PreserveChanges": true }
+
+### REVIEWER 4 can UPDATE when form has SAP_ERROR (Expected: 200)
+PATCH {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=false)
+Authorization: {{reviewer4}}
+Content-Type: application/json
+
+{ "materialGroupNumber_ProductGroup": "ICT1002" }
+
+### REVIEWER 4 (Last Approver) can APPROVE again to retry (Expected: 204)
+POST {{baseUrl}}/RequestForm(ID={{baseFormId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer4}}
+
+
+### =========================================================================
+### 13. MATERIAL CREATION VALUES - CONFIGURATION LOGIC EVALUATION
+### =========================================================================
+
+### Setup (Plant 8888 has no config in MaterialCreationValues)
+# @name MissingConfigCreate
+POST {{baseUrl}}/RequestForm
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{ "formType_code": "NewStock", "plant_plant_Plant": "8888", "estCostPerUnit": 1000 }
+
+### Save ID for next steps
+@missingConfigId = {{MissingConfigCreate.response.body.ID}}
+
+### PATCH fields required for NewStock
+PATCH {{baseUrl}}/RequestForm(ID={{missingConfigId}},IsActiveEntity=false)
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "equipmentNumber": "EQ-001",
+    "chemicalApproval_code": "Yes",
+    "vendor_Supplier": "VEND-001",
+    "vendorPartNumber": "VPN-001",
+    "manufacturer": "MANUF-001",
+    "manufacturerPartNumber": "MPN-001",
+    "materialClass_ClassInternalID": "CLASS-001",
+    "materialClassCharact": "[{\"name\":\"DUMMY_CHAR\",\"selectedValue\":\"DUMMY_VAL\"}]",
+    "estCostPerUnit": 1000,
+    "estDeliveryTime": 10,
+    "functionalLocation": "FL-001",
+    "justification": "Stock Justification",
+    "estUsagePerYear": 100,
+    "maxQtyPerUse": 10,
+    "safetyStockReq": "10",
+    "specialStorageReq": "N/A",
+    "isPreventativeMaintReq": "No",
+    "willReqSupplyStock": true
+}
+
+### Bypass the attachment validation by creating a mock attachment draft
+POST {{baseUrl}}/RequestForm(ID={{missingConfigId}},IsActiveEntity=false)/attachments
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{
+    "note": "dummy"
+}
+
+### Activate
+POST {{baseUrl}}/RequestForm(ID={{missingConfigId}},IsActiveEntity=false)/CatalogService.draftActivate
+Authorization: {{requestor}}
+Content-Type: application/json
+
+{}
+
+### Should return 500 error if NO material creation configuration exists
+POST {{baseUrl}}/RequestForm(ID={{missingConfigId}},IsActiveEntity=true)/CatalogService.approveRequest
+Authorization: {{reviewer1}}
+
+
+### =========================================================================
+### 14. AUTHORIZATIONS ON CONFIGURATION ENTITIES (Roles 1, 2, 3 and 4)
+### =========================================================================
+
+### MANAGER can READ ReviewHierarchy (Expected: 200)
+GET {{baseUrl}}/ReviewHierarchy
+Authorization: {{admin}}
+
+### MANAGER can CREATE PlanningLead (Expected: 201)
+# @name ManagerCreateLead
+POST {{baseUrl}}/PlanningLead
+Authorization: {{admin}}
+Content-Type: application/json
+
+{ "type": "BOM", "email": "planner@test.com" }
+
+### Save ID for next steps
+@leadToDeleteId = {{ManagerCreateLead.response.body.ID}}
+
+### MANAGER can DELETE PlanningLead (Expected: 204)
+DELETE {{baseUrl}}/PlanningLead(ID={{leadToDeleteId}},IsActiveEntity=false)
+Authorization: {{admin}}
+
+### REQUESTOR cannot READ ReviewHierarchy (Expected: 403)
+GET {{baseUrl}}/ReviewHierarchy
+Authorization: {{requestor}}
+
+### REVIEWER can READ MaterialCreationValues (Expected: 200)
+GET {{baseUrl}}/MaterialCreationValues
+Authorization: {{reviewer1}}
+
+### REVIEWER cannot CREATE MaterialCreationValues (Expected: 403)
+POST {{baseUrl}}/MaterialCreationValues
+Authorization: {{reviewer1}}
+Content-Type: application/json
+
+{ "category": "Test", "plant": "3080" }
+
+### UNAUTHORIZED cannot READ FormApprovalSteps (Expected: 403)
+GET {{baseUrl}}/FormApprovalSteps
+Authorization: {{unauthorized}}

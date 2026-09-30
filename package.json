@@ -1,0 +1,353 @@
+{
+  "name": "material_master_data",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@cap-js/attachments": "^3.12.1",
+    "@cap-js/hana": "^2",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/core": "^1.54.2",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
+    "@sap-rfc/node-rfc-library": "^1.1.2",
+    "@sap/cds": "^9",
+    "@sap/cds-rfc": "^2.2.1",
+    "@sap/xssec": "^4",
+    "async-retry": "^1.3.3",
+    "express": "^4",
+    "node-cron": "^4.2.1",
+    "random-delay": "^1.1.2"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "^1.0.1",
+    "@cap-js/mcp-server": "^0.0.4",
+    "@cap-js/sqlite": "^2",
+    "@sap-ux/fiori-mcp-server": "^0.6.51",
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.49",
+    "rimraf": "^5.0.5"
+  },
+  "overrides": {
+    "@eslint/js": "^9"
+  },
+  "scripts": {
+    "postinstall": "node -e \"require('fs').rmSync('node_modules/@sap/cds-dk/node_modules/@sap/cds',{recursive:true,force:true})\"",
+    "start": "cds-serve",
+    "watch-req_material_master_data": "cds watch --open reqmaterialmasterdata/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy-this-is-destructive": "cf undeploy material_master_data --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 0",
+    "watch-maintain_hierarchy": "cds watch --open maintainhierarchy/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-maintain_planning_lead": "cds watch --open maintainplanninglead/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-characteristic_configuration": "cds watch --open characteristicconfiguration/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-material_creation_values": "cds watch --open materialcreationvalues/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "test": "cds test --profile test -w 1"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa",
+        "plant": {
+          "kind": "odata-v2",
+          "model": "srv/external/plant",
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/API_PLANT_SRV"
+          }
+        },
+        "class": {
+          "kind": "odata-v2",
+          "model": "srv/external/class",
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/API_CLFN_CLASS_SRV"
+          }
+        },
+        "characteristic": {
+          "kind": "odata-v2",
+          "model": "srv/external/characteristic",
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/API_CLFN_CHARACTERISTIC_SRV"
+          }
+        },
+        "vendor": {
+          "kind": "odata-v2",
+          "model": "srv/external/vendor",
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+          }
+        },
+        "material": {
+          "kind": "odata-v2",
+          "model": "srv/external/material",
+          "csrf": true,
+          "csrfInBatch": true,
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/API_PRODUCT_SRV"
+          }
+        },
+        "material2": {
+          "kind": "odata-v2",
+          "model": "srv/external/material2",
+          "credentials": {
+            "destination": "HFO100",
+            "path": "/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV"
+          }
+        }
+      },
+      "[test]": {
+        "plant": {
+          "kind": "app-service",
+          "model": "srv/external/plant"
+        },
+        "class": {
+          "kind": "app-service",
+          "model": "srv/external/class"
+        },
+        "characteristic": {
+          "kind": "app-service",
+          "model": "srv/external/characteristic"
+        },
+        "vendor": {
+          "kind": "app-service",
+          "model": "srv/external/vendor"
+        },
+        "material": {
+          "kind": "app-service",
+          "model": "srv/external/material",
+          "csrf": true,
+          "csrfInBatch": true
+        },
+        "material2": {
+          "kind": "app-service",
+          "model": "srv/external/material2"
+        },
+        "materialMasterBAPI": {
+          "kind": "app-service",
+          "model": "srv/external/materialMasterBAPI"
+        },
+        "saveMaterialDataBAPI": {
+          "kind": "app-service",
+          "model": "srv/external/saveMaterialDataBAPI"
+        }
+      },
+      "connectivity": true,
+      "destinations": true,
+      "html5-repo": true,
+      "workzone": true,
+      "malware-scanner": true,
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "requestor": {
+            "password": "requestor",
+            "roles": [
+              "REQUESTOR"
+            ],
+            "attr": {
+              "email": "localreq@test.com"
+            }
+          },
+          "requestor1": {
+            "password": "requestor1",
+            "roles": [
+              "REQUESTOR"
+            ],
+            "attr": {
+              "email": "localreq1@test.com"
+            }
+          },
+          "admin": {
+            "password": "admin",
+            "roles": [
+              "MANAGER"
+            ]
+          },
+          "reviewer": {
+            "password": "revrevrev",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "fprimavesi@blueboot.com"
+            }
+          },
+          "rev1_3030": {
+            "password": "rev1_3030",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev1_3030@test.com"
+            }
+          },
+          "rev2_3030": {
+            "password": "rev2_3030",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev2_3030@test.com"
+            }
+          },
+          "rev3_3030": {
+            "password": "rev3_3030",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev3_3030@test.com"
+            }
+          },
+          "rev4_3030": {
+            "password": "rev4_3030",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev4_3030@test.com"
+            }
+          },
+          "rev5_3030": {
+            "password": "rev5_3030",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev5_3030@test.com"
+            }
+          },
+          "rev1_3333Auth": {
+            "password": "rev1_3333Auth",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "rev1_3333Auth@test.com"
+            }
+          },
+          "reviewer1": {
+            "password": "reviewer1",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer1@test.com"
+            }
+          },
+          "reviewer1_1": {
+            "password": "reviewer1_1",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer1_1@test.com"
+            }
+          },
+          "reviewer1_2": {
+            "password": "reviewer1_2",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer1_2@test.com"
+            }
+          },
+          "reviewer2": {
+            "password": "reviewer2",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer2@test.com"
+            }
+          },
+          "reviewer3": {
+            "password": "reviewer3",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer3@test.com"
+            }
+          },
+          "reviewer4": {
+            "password": "reviewer4",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "reviewer4@test.com"
+            }
+          },
+          "unassignedReviewer": {
+            "password": "unassignedReviewer",
+            "roles": [
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "unassignedReviewer@test.com"
+            }
+          },
+          "reqrev": {
+            "password": "reqrev",
+            "roles": [
+              "REQUESTOR",
+              "REVIEWER"
+            ],
+            "attr": {
+              "email": "localreqrev@test.com"
+            }
+          },
+          "unauthorized": {
+            "password": "unauthorized",
+            "roles": []
+          }
+        }
+      },
+      "materialMasterBAPI": {
+        "kind": "rfc",
+        "model": "srv/external/materialMasterBAPI",
+        "[production]": {
+          "credentials": {
+            "destination": "HFO_Material_Master_BAPI"
+          }
+        },
+        "[semihybrid]": {
+          "credentials": {
+            "destination": "HFO_Material_Master_BAPI"
+          }
+        }
+      },
+      "saveMaterialDataBAPI": {
+        "kind": "rfc",
+        "model": "srv/external/saveMaterialDataBAPI",
+        "[production]": {
+          "credentials": {
+            "destination": "HFO_Material_Master_BAPI"
+          }
+        },
+        "[semihybrid]": {
+          "credentials": {
+            "destination": "HFO_Material_Master_BAPI"
+          }
+        }
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/req_material_master_data",
+    "app/maintain_hierarchy",
+    "app/maintain_planning_lead",
+    "app/characteristic_configuration",
+    "app/material_creation_values"
+  ]
+}

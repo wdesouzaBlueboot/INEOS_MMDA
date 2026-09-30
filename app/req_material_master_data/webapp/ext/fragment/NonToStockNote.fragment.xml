@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <MessageStrip
+        id="msNonToStockPlantNote"
+        text="{i18n>NonToStockPlantNote}"
+        type="Information"
+        showIcon="true"
+        showCloseButton="false"
+        visible="false"
+        class="sapUiSmallMarginTopBottom" />
+</core:FragmentDefinition>

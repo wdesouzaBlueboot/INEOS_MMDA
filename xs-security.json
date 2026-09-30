@@ -1,0 +1,73 @@
+{
+  "xsappname": "material_master_data",
+  "tenant-mode": "dedicated",
+  "description": "A simple CAP project.",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.REQUESTOR",
+      "description": "Material Master Data Requestor"
+    },
+    {
+      "name": "$XSAPPNAME.REVIEWER",
+      "description": "Material Master Data Reviewer (Approves/Rejects requests)"
+    },
+    {
+      "name": "$XSAPPNAME.MANAGER",
+      "description": "Manage applications and data"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "REQUESTOR",
+      "description": "Role template for Material Master Data Request Creator",
+      "scope-references": [
+        "uaa.user",
+        "$XSAPPNAME.REQUESTOR"
+      ]
+    },
+    {
+      "name": "REVIEWER",
+      "description": "Role template for Material Master Data Request Reviewer",
+      "scope-references": [
+        "uaa.user",
+        "$XSAPPNAME.REVIEWER"
+      ]
+    },
+    {
+      "name": "MANAGER",
+      "description": "Administrator Role template",
+      "scope-references": [
+        "uaa.user",
+        "$XSAPPNAME.MANAGER"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "material_md_request_creator",
+      "description": "Assign this to users who need request creation rights",
+      "role-template-references": [
+        "$XSAPPNAME.REQUESTOR"
+      ]
+    },
+    {
+      "name": "material_md_request_reviewer",
+      "description": "Assign this to users who need request approval/rejection rights",
+      "role-template-references": [
+        "$XSAPPNAME.REVIEWER"
+      ]
+    },
+    {
+      "name": "material_md_approval_flow_manager",
+      "description": "Assign this to users requiring management rights for the applications",
+      "role-template-references": [
+        "$XSAPPNAME.MANAGER"
+      ]
+    }
+  ]
+}
